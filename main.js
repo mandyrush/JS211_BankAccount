@@ -12,21 +12,26 @@ class BankAccount {
     }
 
     balance () {
+        // This shows the current balance of the account with all of it's transactions.
         let totalsArray = this.transactions.map(transaction => transaction.amount);
         return totalsArray.reduce((a, b) => a + b, 0);
     }
 
     isNumber (amt) {
+        // This returns whether or not a value is a number.
         return typeof amt === 'number';
     }
 
     deposit (amt) {
+        // Check to see if the deposited amount is a number, if not throw an error.
         if (!this.isNumber(amt)) {
             console.log('Please enter a number');
             return 'Please enter a number';
         }
 
+        // Make sure the deposited amount is not negative, if it is throw an error.
         if (amt > 0) {
+            // Add the deposited amount to the transaction list as a new transaction.
             this.transactions.push(new Transaction(amt, 'Deposit'));
         } else {
             console.log('You cannot deposit a negative amount');
@@ -35,11 +40,13 @@ class BankAccount {
     }
 
     charge (payee, amt) {
+        // Make sure the amount being charged is a number. If not, throw an error.
         if (!this.isNumber(amt)) {
             console.log('Please enter a number');
             return 'Please enter a number';
         }
 
+        // Make sure there are enough funds in the account to process this charge, if not throw an error.
         if (this.balance() - amt >= 0) {
             this.transactions.push(new Transaction(-Math.abs(amt), payee));
         } else {
