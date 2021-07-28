@@ -48,7 +48,7 @@ class BankAccount {
 
         // Make sure there are enough funds in the account to process this charge, if not throw an error.
         if (this.balance() - amt >= 0) {
-            this.transactions.push(new Transaction(-Math.abs(amt), payee));
+            this.transactions.push(new Transaction(-amt, payee));
         } else {
             console.log('You do not have enough funds to process this transaction');
             return 'You do not have enough funds to process this transaction';
